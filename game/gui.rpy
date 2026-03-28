@@ -25,32 +25,43 @@ define config.check_conflicting_properties = True
 ## 界面中文本的颜色。
 
 ## 整个界面中使用的强调色，用于标记和突出显示文本。
-define gui.accent_color = '#0099cc'
+define gui.accent_color = '#8fd8ff'
 
 ## 当文本按钮既未被选中也未被悬停时使用的颜色。
-define gui.idle_color = '#888888'
+define gui.idle_color = '#9fb0c0'
 
 ## 小的颜色用于小的文本，需要更亮/更暗才能达到同样的效果。
-define gui.idle_small_color = '#aaaaaa'
+define gui.idle_small_color = '#b7c5d2'
 
 ## 当按钮和滑条被悬停时使用的颜色。
-define gui.hover_color = '#66c1e0'
+define gui.hover_color = '#f4fbff'
 
 ## 当文本按钮被选中但非焦点时使用的颜色。当一个按钮为当前屏幕或设置选项值时，会
 ## 处于选中状态。
 define gui.selected_color = '#ffffff'
 
 ## 当文本按钮无法被选择时使用的颜色。
-define gui.insensitive_color = '#8888887f'
+define gui.insensitive_color = '#9fb0c066'
 
 ## 滑条未填充的部分使用的颜色。这些颜色不直接使用，但在重新生成条形图像文件时使
 ## 用。
-define gui.muted_color = '#003d51'
-define gui.hover_muted_color = '#005b7a'
+define gui.muted_color = '#163549'
+define gui.hover_muted_color = '#2b607c'
 
 ## 对话和菜单选择文本使用的颜色。
-define gui.text_color = '#ffffff'
-define gui.interface_text_color = '#ffffff'
+define gui.text_color = '#f5fbff'
+define gui.interface_text_color = '#e6f2fb'
+
+## 自定义界面层次色，统一半透明面板、描边与遮罩。
+define gui.surface_color = '#09131de6'
+define gui.surface_soft_color = '#102131cc'
+define gui.surface_strong_color = '#071119f2'
+define gui.edge_color = '#a6e7ff26'
+define gui.overlay_color = '#02070cb8'
+define gui.namebox_color = '#84d9ff2b'
+define gui.choice_idle_fill = '#ffffff0d'
+define gui.choice_hover_fill = '#8fd8ff24'
+define gui.choice_selected_fill = '#8fd8ff33'
 
 
 ## 字体和字体大小 #####################################################################
@@ -77,17 +88,17 @@ define gui.interface_text_size = 33
 define gui.label_text_size = 36
 
 ## 通知屏幕上文本的大小。
-define gui.notify_text_size = 24
+define gui.notify_text_size = 26
 
 ## 游戏标题的大小。
-define gui.title_text_size = 75
+define gui.title_text_size = 92
 
 
 ## 标题和游戏菜单 #####################################################################
 
 ## 标题菜单和游戏菜单使用的图像。
-define gui.main_menu_background = "gui/main_menu.png"
-define gui.game_menu_background = "gui/game_menu.png"
+define gui.main_menu_background = "images/bg/endless_white_corridor_1920x1080.png"
+define gui.game_menu_background = "images/bg/endless_white_corridor_1920x1080.png"
 
 
 ## 对话 ##########################################################################
@@ -95,7 +106,7 @@ define gui.game_menu_background = "gui/game_menu.png"
 ## 这些变量控制对话如何在屏幕上逐行显示。
 
 ## 包含对话的文本框的高度。
-define gui.textbox_height = 278
+define gui.textbox_height = 248
 
 ## 文本框在屏幕上的垂直位置。0.0 是顶部，0.5 是居中，1.0 是底部。
 define gui.textbox_yalign = 1.0
@@ -103,8 +114,8 @@ define gui.textbox_yalign = 1.0
 
 ## 叙述角色名字相对于文本框的位置。可以是从左侧或顶部起的整数像素，或设为 0.5 来
 ## 居中。
-define gui.name_xpos = 360
-define gui.name_ypos = 0
+define gui.name_xpos = 96
+define gui.name_ypos = -22
 
 ## 角色名字的水平对齐方式。0.0 为左侧对齐，0.5 为居中显示，而 1.0 为右侧对齐。
 define gui.name_xalign = 0.0
@@ -122,11 +133,11 @@ define gui.namebox_tile = False
 
 ## 对话相对于文本框的位置。可以是相对于文本框从左侧或顶部起的整数像素，或设为
 ## 0.5 来居中。
-define gui.dialogue_xpos = 402
-define gui.dialogue_ypos = 75
+define gui.dialogue_xpos = 96
+define gui.dialogue_ypos = 54
 
 ## 对话文本的最大宽度，以像素为单位。
-define gui.dialogue_width = 1116
+define gui.dialogue_width = 1728
 
 ## 对话文本的水平对齐方式。0.0 为左侧对齐，0.5 为居中显示，而 1.0 为右侧对齐。
 define gui.dialogue_text_xalign = 0.0
@@ -198,9 +209,9 @@ define gui.choice_button_borders = Borders(150, 8, 150, 8)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = '#888888'
-define gui.choice_button_text_hover_color = "#ffffff"
-define gui.choice_button_text_insensitive_color = '#8888887f'
+define gui.choice_button_text_idle_color = gui.interface_text_color
+define gui.choice_button_text_hover_color = gui.hover_color
+define gui.choice_button_text_insensitive_color = gui.insensitive_color
 
 
 ## 存档按钮 ########################################################################
@@ -213,7 +224,7 @@ define gui.slot_button_width = 414
 define gui.slot_button_height = 309
 define gui.slot_button_borders = Borders(15, 15, 15, 15)
 define gui.slot_button_text_size = 21
-define gui.slot_button_text_xalign = 0.5
+define gui.slot_button_text_xalign = 0.0
 define gui.slot_button_text_idle_color = gui.idle_small_color
 define gui.slot_button_text_selected_idle_color = gui.selected_color
 define gui.slot_button_text_selected_hover_color = gui.hover_color
@@ -241,22 +252,22 @@ define gui.skip_ypos = 15
 define gui.notify_ypos = 68
 
 ## 菜单选项之间的间距。
-define gui.choice_spacing = 33
+define gui.choice_spacing = 18
 
 ## 标题菜单和游戏菜单的导航部分中的按钮。
-define gui.navigation_spacing = 6
+define gui.navigation_spacing = 12
 
 ## 控制设置项目之间的间隔量。
-define gui.pref_spacing = 15
+define gui.pref_spacing = 18
 
 ## 控制设置按钮之间的间距。
 define gui.pref_button_spacing = 0
 
 ## 存档页面按钮之间的间距。
-define gui.page_spacing = 0
+define gui.page_spacing = 10
 
 ## 存档按钮之间的间距。
-define gui.slot_spacing = 15
+define gui.slot_spacing = 24
 
 ## 标题菜单文本的位置。
 define gui.main_menu_text_xalign = 1.0
@@ -321,7 +332,7 @@ define gui.unscrollable = "hide"
 define config.history_length = 250
 
 ## 历史屏幕条目的高度，或设置为 None 以使高度变量自适应。
-define gui.history_height = 210
+define gui.history_height = 236
 
 ## 在历史记录屏幕条目之间添加额外的空间。
 define gui.history_spacing = 0

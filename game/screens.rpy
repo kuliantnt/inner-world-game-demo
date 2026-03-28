@@ -76,6 +76,18 @@ style frame:
     background Frame("gui/frame.png", gui.frame_borders, tile=gui.frame_tile)
 
 
+## 轻量动画 ########################################################################
+##
+## 用于菜单和面板的轻微淡入位移，避免默认模板切换时的生硬感。
+
+transform panel_fade(offset_x=0, offset_y=24, delay=0.0):
+    alpha 0.0
+    xoffset offset_x
+    yoffset offset_y
+    pause delay
+    ease .35 alpha 1.0 xoffset 0 yoffset 0
+
+
 
 ################################################################################
 ## 游戏内屏幕
@@ -131,8 +143,11 @@ style window:
     xfill True
     yalign gui.textbox_yalign
     ysize gui.textbox_height
-
-    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+    left_padding 56
+    right_padding 56
+    top_padding 26
+    bottom_padding 28
+    background Solid(gui.surface_color)
 
 style namebox:
     xpos gui.name_xpos
@@ -140,9 +155,9 @@ style namebox:
     xsize gui.namebox_width
     ypos gui.name_ypos
     ysize gui.namebox_height
-
-    background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
+    xpadding 20
+    ypadding 8
+    background Solid(gui.namebox_color)
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -200,28 +215,62 @@ style input:
 
 screen choice(items):
     style_prefix "choice"
+    zorder 30
 
-    vbox:
-        for i in items:
-            textbutton i.caption action i.action
+    add Solid("#03070a55")
+
+    frame:
+        style "choice_panel"
+        at panel_fade(0, 28, 0.0)
+
+        vbox:
+            style "choice_vbox"
+
+            text _("做出你的选择"):
+                style "choice_prompt"
+
+            for i in items:
+                textbutton i.caption action i.action
 
 
+style choice_panel is empty
 style choice_vbox is vbox
 style choice_button is button
 style choice_button_text is button_text
+style choice_prompt is gui_text
+
+style choice_panel:
+    xalign 0.5
+    yalign 0.52
+    xmaximum 1320
+    xpadding 36
+    ypadding 32
+    background Solid(gui.surface_soft_color)
 
 style choice_vbox:
     xalign 0.5
-    ypos 405
-    yanchor 0.5
-
     spacing gui.choice_spacing
 
 style choice_button is default:
-    properties gui.button_properties("choice_button")
+    xsize gui.choice_button_width
+    yminimum 94
+    left_padding 36
+    right_padding 36
+    top_padding 18
+    bottom_padding 18
+    background Solid(gui.choice_idle_fill)
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
+
+style choice_prompt:
+    xalign 0.5
+    textalign 0.5
+    size 24
+    color gui.idle_small_color
 
 
 ## 快捷菜单屏幕 ######################################################################
@@ -234,19 +283,21 @@ screen quick_menu():
     zorder 100
 
     if quick_menu:
+        frame:
+            style "quick_panel"
 
-        hbox:
-            style_prefix "quick"
-            style "quick_menu"
+            hbox:
+                style_prefix "quick"
+                style "quick_menu"
 
-            textbutton _("回退") action Rollback()
-            textbutton _("历史") action ShowMenu('history')
-            textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("自动") action Preference("auto-forward", "toggle")
-            textbutton _("保存") action ShowMenu('save')
-            textbutton _("快存") action QuickSave()
-            textbutton _("快读") action QuickLoad()
-            textbutton _("设置") action ShowMenu('preferences')
+                textbutton _("回退") action Rollback()
+                textbutton _("历史") action ShowMenu('history')
+                textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("自动") action Preference("auto-forward", "toggle")
+                textbutton _("保存") action ShowMenu('save')
+                textbutton _("快存") action QuickSave()
+                textbutton _("快读") action QuickLoad()
+                textbutton _("设置") action ShowMenu('preferences')
 
 
 ## 此代码确保只要用户没有主动隐藏界面，就会在游戏中显示 quick_menu 屏幕。
@@ -255,16 +306,31 @@ init python:
 
 default quick_menu = True
 
+style quick_panel is empty
 style quick_menu is hbox
 style quick_button is default
 style quick_button_text is button_text
 
-style quick_menu:
+style quick_panel:
     xalign 0.5
     yalign 1.0
+    yoffset -12
+    xpadding 12
+    ypadding 8
+    background Solid("#071019c8")
+
+style quick_menu:
+    spacing 8
 
 style quick_button:
-    properties gui.button_properties("quick_button")
+    left_padding 12
+    right_padding 12
+    top_padding 6
+    bottom_padding 6
+    background Solid("#ffffff08")
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
 
 style quick_button_text:
     properties gui.text_properties("quick_button")
@@ -279,59 +345,95 @@ style quick_button_text:
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
 screen navigation():
+    frame:
+        style ("navigation_panel_main" if main_menu else "navigation_panel")
+        at panel_fade((48 if main_menu else -36), 0, 0.05)
 
-    vbox:
-        style_prefix "navigation"
+        vbox:
+            style_prefix "navigation"
+            spacing gui.navigation_spacing
 
-        xpos gui.navigation_xpos
-        yalign 0.5
+            text (_("开始旅程") if main_menu else _("系统菜单")):
+                style "navigation_kicker"
 
-        spacing gui.navigation_spacing
+            if main_menu:
 
-        if main_menu:
+                textbutton _("开始游戏") action Start()
 
-            textbutton _("开始游戏") action Start()
+            else:
 
-        else:
+                textbutton _("历史") action ShowMenu("history")
 
-            textbutton _("历史") action ShowMenu("history")
+                textbutton _("保存") action ShowMenu("save")
 
-            textbutton _("保存") action ShowMenu("save")
+            textbutton _("读取游戏") action ShowMenu("load")
 
-        textbutton _("读取游戏") action ShowMenu("load")
+            textbutton _("设置") action ShowMenu("preferences")
 
-        textbutton _("设置") action ShowMenu("preferences")
+            if _in_replay:
 
-        if _in_replay:
+                textbutton _("结束回放") action EndReplay(confirm=True)
 
-            textbutton _("结束回放") action EndReplay(confirm=True)
+            elif not main_menu:
 
-        elif not main_menu:
+                textbutton _("标题菜单") action MainMenu()
 
-            textbutton _("标题菜单") action MainMenu()
+            textbutton _("关于") action ShowMenu("about")
 
-        textbutton _("关于") action ShowMenu("about")
+            if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
-        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+                ## “帮助”对移动设备来说并非必需或相关。
+                textbutton _("帮助") action ShowMenu("help")
 
-            ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help")
+            if renpy.variant("pc"):
 
-        if renpy.variant("pc"):
-
-            ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu)
+                ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
+                textbutton _("退出") action Quit(confirm=not main_menu)
 
 
+style navigation_panel is empty
+style navigation_panel_main is empty
+style navigation_kicker is gui_text
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
 
+style navigation_panel:
+    xpos 64
+    yalign 0.5
+    xsize 308
+    xpadding 20
+    ypadding 22
+    background Solid(gui.surface_strong_color)
+
+style navigation_panel_main:
+    xalign 1.0
+    xoffset -88
+    yalign 0.5
+    xsize 332
+    xpadding 24
+    ypadding 26
+    background Solid(gui.surface_strong_color)
+
+style navigation_kicker:
+    size 21
+    color gui.idle_small_color
+    kerning 1
+
 style navigation_button:
     size_group "navigation"
-    properties gui.button_properties("navigation_button")
+    xfill True
+    left_padding 18
+    right_padding 18
+    top_padding 14
+    bottom_padding 14
+    background Solid("#ffffff09")
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
 
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
+    xalign 0.0
 
 
 ## 标题菜单屏幕 ######################################################################
@@ -346,31 +448,40 @@ screen main_menu():
     tag menu
 
     add gui.main_menu_background
+    add Solid(gui.overlay_color)
 
-    ## 此空框可使标题菜单变暗。
     frame:
-        style "main_menu_frame"
-
-    ## use 语句将其他的屏幕包含进此屏幕。标题屏幕的实际内容在导航屏幕中。
-    use navigation
-
-    if gui.show_name:
+        style "main_menu_brand_panel"
+        at panel_fade(-52, 0, 0.0)
 
         vbox:
             style "main_menu_vbox"
 
-            text "[config.name!t]":
-                style "main_menu_title"
+            text _("视觉小说原型"):
+                style "main_menu_kicker"
 
-            text "[config.version]":
+            if gui.show_name:
+
+                text "[config.name!t]":
+                    style "main_menu_title"
+
+            text _("在留白、回声与角色心境之间，开始第一段故事。"):
+                style "main_menu_tagline"
+
+            text _("Ver. [config.version]"):
                 style "main_menu_version"
+
+    use navigation
 
 
 style main_menu_frame is empty
+style main_menu_brand_panel is empty
 style main_menu_vbox is vbox
 style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
+style main_menu_kicker is main_menu_text
+style main_menu_tagline is main_menu_text
 
 style main_menu_frame:
     xsize 420
@@ -378,21 +489,36 @@ style main_menu_frame:
 
     background "gui/overlay/main_menu.png"
 
+style main_menu_brand_panel:
+    xpos 88
+    yalign 0.5
+    xmaximum 760
+    xpadding 44
+    ypadding 42
+    background Solid(gui.surface_color)
+
 style main_menu_vbox:
-    xalign 1.0
-    xoffset -30
-    xmaximum 1200
-    yalign 1.0
-    yoffset -30
+    spacing 14
 
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
 
+style main_menu_kicker:
+    size 24
+    color gui.idle_small_color
+
 style main_menu_title:
     properties gui.text_properties("title")
+    color gui.text_color
+
+style main_menu_tagline:
+    size 30
+    color gui.interface_text_color
+    xmaximum 620
 
 style main_menu_version:
     properties gui.text_properties("version")
+    color gui.idle_small_color
 
 
 ## 游戏菜单屏幕 ######################################################################
@@ -411,6 +537,8 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
         add gui.main_menu_background
     else:
         add gui.game_menu_background
+
+    add Solid(gui.overlay_color)
 
     frame:
         style "game_menu_outer_frame"
@@ -488,22 +616,30 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding 45
-    top_padding 180
-
-    background "gui/overlay/game_menu.png"
+    left_padding 48
+    right_padding 48
+    top_padding 72
+    bottom_padding 48
+    background None
 
 style game_menu_navigation_frame:
-    xsize 420
+    xsize 380
     yfill True
 
 style game_menu_content_frame:
-    left_margin 60
-    right_margin 30
-    top_margin 15
+    xfill True
+    left_margin 28
+    right_margin 18
+    top_margin 78
+    bottom_margin 18
+    left_padding 32
+    right_padding 32
+    top_padding 28
+    bottom_padding 28
+    background Solid(gui.surface_soft_color)
 
 style game_menu_viewport:
-    xsize 1380
+    xsize 1360
 
 style game_menu_vscrollbar:
     unscrollable gui.unscrollable
@@ -512,18 +648,21 @@ style game_menu_side:
     spacing 15
 
 style game_menu_label:
-    xpos 75
-    ysize 180
+    xpos 458
+    ypos 92
+    xpadding 18
+    ypadding 10
+    background Solid("#071019dd")
 
 style game_menu_label_text:
-    size 75
+    size 46
     color gui.accent_color
     yalign 0.5
 
 style return_button:
-    xpos gui.navigation_xpos
+    xpos 84
     yalign 1.0
-    yoffset -45
+    yoffset -72
 
 
 ## 关于屏幕 ########################################################################
@@ -686,9 +825,10 @@ style slot_time_text is slot_button_text
 style slot_name_text is slot_button_text
 
 style page_label:
-    xpadding 75
-    ypadding 5
+    xpadding 28
+    ypadding 12
     xalign 0.5
+    background Solid("#071019dd")
 
 style page_label_text:
     textalign 0.5
@@ -696,16 +836,37 @@ style page_label_text:
     hover_color gui.hover_color
 
 style page_button:
-    properties gui.button_properties("page_button")
+    left_padding 14
+    right_padding 14
+    top_padding 8
+    bottom_padding 8
+    background Solid("#ffffff08")
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
 
 style page_button_text:
     properties gui.text_properties("page_button")
 
 style slot_button:
-    properties gui.button_properties("slot_button")
+    xpadding 12
+    ypadding 12
+    background Solid("#071019dc")
+    hover_background Solid("#0d2233f0")
+    selected_idle_background Solid("#0d2233f0")
+    selected_hover_background Solid("#143149f0")
 
 style slot_button_text:
     properties gui.text_properties("slot_button")
+    xalign 0.0
+    textalign 0.0
+
+style slot_time_text:
+    color gui.idle_small_color
+
+style slot_name_text:
+    color gui.interface_text_color
+    size 24
 
 
 ## 设置屏幕 ########################################################################
@@ -835,7 +996,14 @@ style radio_vbox:
     spacing gui.pref_button_spacing
 
 style radio_button:
-    properties gui.button_properties("radio_button")
+    left_padding 16
+    right_padding 16
+    top_padding 12
+    bottom_padding 12
+    background Solid("#ffffff08")
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
     foreground "gui/button/radio_[prefix_]foreground.png"
 
 style radio_button_text:
@@ -845,7 +1013,14 @@ style check_vbox:
     spacing gui.pref_button_spacing
 
 style check_button:
-    properties gui.button_properties("check_button")
+    left_padding 16
+    right_padding 16
+    top_padding 12
+    bottom_padding 12
+    background Solid("#ffffff08")
+    hover_background Solid(gui.choice_hover_fill)
+    selected_idle_background Solid(gui.choice_selected_fill)
+    selected_hover_background Solid(gui.choice_selected_fill)
     foreground "gui/button/check_[prefix_]foreground.png"
 
 style check_button_text:
@@ -1501,15 +1676,17 @@ screen quick_menu():
     zorder 100
 
     if quick_menu:
+        frame:
+            style "quick_panel"
 
-        hbox:
-            style "quick_menu"
-            style_prefix "quick"
+            hbox:
+                style "quick_menu"
+                style_prefix "quick"
 
-            textbutton _("回退") action Rollback()
-            textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("自动") action Preference("auto-forward", "toggle")
-            textbutton _("菜单") action ShowMenu()
+                textbutton _("回退") action Rollback()
+                textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("自动") action Preference("auto-forward", "toggle")
+                textbutton _("菜单") action ShowMenu()
 
 
 style window:
