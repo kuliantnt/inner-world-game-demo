@@ -14,6 +14,7 @@
 - 角色定义：`game/characters.rpy`
 - 全局状态：`game/data/game_state.rpy`
 - 章节脚本：`game/story/`
+- 策划文档：`docs/`
 - 立绘声明：`game/images_characters.rpy`
 - 背景声明：`game/images_backgrounds.rpy`
 - GUI 参数：`game/gui.rpy`
@@ -25,6 +26,7 @@
 
 - 改剧情时，优先修改 `game/story/`，不要把章节内容重新堆回 `game/script.rpy`
 - 改角色信息时，优先修改 `game/characters.rpy` 与 `game/images_characters.rpy`
+- 改人物企划、角色设定卡、个人线方向时，优先修改 `docs/` 下的文档，不要把大段策划说明写进运行脚本
 - 改背景图接入时，优先修改 `game/images_backgrounds.rpy`
 - 改 UI 时，优先修改 `game/gui.rpy` 和 `game/screens.rpy`
 - 除非用户明确要求，不要随意删除现有图片、重命名资源文件、或改动已存在的图片路径
@@ -78,6 +80,8 @@
 - 当前主分支为 `main`
 - GitHub 远端已配置为私有仓库 `inner-world-game-demo`
 - 当前项目已存在基础剧情文件：`game/story/chapter_01_prologue.rpy`、`game/story/chapter_01_inner_world.rpy`
+- 当前项目已建立角色策划文档：`docs/角色设定总表.md`
 - 当前项目已存在背景声明：`image bg inner_world = "images/bg/endless_white_corridor_1920x1080.png"`
 
 后续代理开始工作时，先读本文件，再读 `README.md`、`game/script.rpy`、目标改动对应的 `.rpy` 文件。
+若任务涉及剧情推进、角色塑造、台词风格、个人线设计，额外先读 `docs/角色设定总表.md`。

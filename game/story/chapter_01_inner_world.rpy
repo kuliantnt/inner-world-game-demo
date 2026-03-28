@@ -148,4 +148,4 @@ label chapter_01_inner_world:
 
     "第一章，到这里才算真正开始。"
 
-    return
+    jump chapter_02_door_echo
