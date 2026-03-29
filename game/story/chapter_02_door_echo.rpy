@@ -24,8 +24,8 @@ label chapter_02_door_echo:
     show qingchuan idle at char_duo_right
     with dissolve
 
-    lianlian "刚来第一晚就闹这么大，运气也太差了吧。"
-    qingchuan "别吓他。先把裂缝压住。"
+    lianlian "才来第一晚就被门盯上，运气真够烂。你先站稳，别乱碰裂缝。"
+    qingchuan "听她的。现在不是逞强的时候，先别让它把你牵走。"
 
     hide lianlian idle
     hide qingchuan idle
@@ -34,9 +34,9 @@ label chapter_02_door_echo:
     with dissolve
 
     xiaoyu "不对，它不是在往外扩。"
-    xiaoyu "它像是在找一个能完全对上的情绪。"
-    xuexue "更准确一点，是记忆。"
-    xuexue "门缝碰到他之后，被某段没处理干净的记忆勾住了。"
+    xiaoyu "它在认人，像闻到熟悉味道以后死咬着不放。"
+    xuexue "更准确一点，是记忆匹配。"
+    xuexue "门缝碰到他之后，被某段未处理完成的残留记忆勾住了。"
 
     "你听见最后那句话，胸口无端地收紧。"
     "仿佛有一只手，正从更深的地方把某个你不愿想起的夜晚硬生生拽出来。"
@@ -50,8 +50,8 @@ label chapter_02_door_echo:
 
     yaxuan "引导者，你带他稳住视线。"
     yaxuan "脸脸和晴川负责封边，小雨、雪雪继续判断回响来源。"
-    mengmeng "如果真是他的回响，那就不能硬切。"
-    lulu "硬切会把人一起撕坏的。"
+    mengmeng "如果真是他的回响，就不能硬切。痛感会全砸回他身上。"
+    lulu "而且门会记仇。被这样撕开的东西，通常不会只开一次。"
 
     "你猛地抬头。"
     "露露说这句话时语气很轻，像在说一件早就见过很多次的事。"
@@ -115,7 +115,7 @@ label chapter_02_door_echo:
     with dissolve
 
     mengmeng "它安静下来了。"
-    mengmeng "不是被压住，是在听。"
+    mengmeng "不是被压住，是终于等到他肯开口。"
 
     hide mengmeng idle
     show xuexue idle at char_duo_left
@@ -123,7 +123,7 @@ label chapter_02_door_echo:
     with dissolve
 
     xuexue "回响完成了第一轮锁定。"
-    yaxuan "继续。让他自己把门推开。"
+    yaxuan "继续。让他自己给那扇门一个方向。"
 
     "你怔住。"
     "那扇半透明的门仍停在前方，门缝里只有一片看不透的黑。"
@@ -154,9 +154,9 @@ label chapter_02_door_echo:
     show qingchuan idle at char_duo_right
     with dissolve
 
-    lianlian "封住了。"
-    qingchuan "不，是先退回去了。"
-    qingchuan "它还会再来。"
+    lianlian "暂时收回去了。下次它再扑出来，你先给我退到安全线后面。"
+    qingchuan "别被她语气骗到。意思是，她已经把你算进保护范围了。"
+    qingchuan "不过她说得对，它还会再来。"
 
     hide lianlian idle
     hide qingchuan idle
@@ -164,8 +164,8 @@ label chapter_02_door_echo:
     show lulu idle at char_duo_right
     with dissolve
 
-    xiaoyu "你手上有东西。"
-    lulu "呀，门印。"
+    xiaoyu "你手上有东西！刚才还没有的。"
+    lulu "呀，门印。它喜欢把看中的人先圈起来。"
 
     "你低头看去，手腕内侧不知何时多出一道灰白色的细纹。"
     "它像一枚没有闭合的圆环，边缘微微发冷，像刚从雾里拿出来。"
@@ -196,10 +196,10 @@ label chapter_02_door_echo:
     show mengmeng idle at char_duo_right
     with dissolve
 
-    qingchuan "别把话说得太重。"
-    qingchuan "至少他刚刚确实把第一波回响压下去了。"
+    qingchuan "别一下子把重量全压给他。"
+    qingchuan "至少刚刚那一波，他是真的自己站住了。"
     mengmeng "而且他已经给了里世界一个答案。"
-    mengmeng "接下来，轮到现实回答了。"
+    mengmeng "接下来，轮到现实慢慢把后面的那句补上了。"
 
     hide qingchuan idle
     hide mengmeng idle

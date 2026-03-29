@@ -41,8 +41,8 @@ label chapter_01_inner_world:
     show qingchuan idle at char_duo_right
     with dissolve
 
-    lianlian "所以就是他？看起来也没有很特别嘛。"
-    qingchuan "脸脸，别一上来就吓人。"
+    lianlian "就是他？看着快站不稳了。别一下子围这么近，吓坏了最后还是我收场。"
+    qingchuan "听见没有？她这人开口像在挑刺，实际上是在让你先别怕。"
 
     hide lianlian idle
     hide qingchuan idle
@@ -50,8 +50,8 @@ label chapter_01_inner_world:
     show xuexue idle at char_duo_right
     with dissolve
 
-    xiaoyu "他脸色好差，是刚被拖进来吗？"
-    xuexue "第一次都这样，习惯就好了。"
+    xiaoyu "他手都在抖诶。你们不要摆出一副审讯样子，好像下一秒就要把他拆开看。"
+    xuexue "结论：惊吓过量，信息处理超载。先降低刺激，再解释规则。"
 
     hide xiaoyu idle
     hide xuexue idle
@@ -60,9 +60,9 @@ label chapter_01_inner_world:
     show lulu idle at char_trio_right
     with dissolve
 
-    yaxuan "先让他把情况弄清楚，再决定后面的安排。"
-    mengmeng "我比较在意，他会不会留下来。"
-    lulu "如果能留下，之后就热闹了。"
+    yaxuan "先让他把呼吸缓下来。话不用一次说完，人先稳住。"
+    mengmeng "嗯，先接住他。能不能留下来，也该等他不那么害怕再说。"
+    lulu "原来这次来的，是会把门也吵醒的类型。"
 
     "七道目光几乎同时落在你身上。"
     "明明每个人的语气都不同，但你却莫名感觉到一种一致的压迫。"
@@ -84,8 +84,8 @@ label chapter_01_inner_world:
     show qingchuan idle at char_duo_right
     with dissolve
 
-    lianlian "别那么紧张，我们又不会立刻把你吃掉。"
-    qingchuan "你这句安慰比不说还可怕。"
+    lianlian "紧张可以，别硬撑。你要是真在这里失控，我还得把你从门边拽回来。"
+    qingchuan "翻译一下，她是在告诉你，这里暂时不会把你一个人丢着。"
 
     hide lianlian idle
     hide qingchuan idle
@@ -93,8 +93,8 @@ label chapter_01_inner_world:
     show yaxuan idle at char_duo_right
     with dissolve
 
-    xiaoyu "总之，先让他熟悉规则吧。"
-    yaxuan "对。至少先让他知道，一旦见过里世界，就很难装作没见过。"
+    xiaoyu "想回去就回去呀，但你别假装今晚什么都没发生。那样最笨了。"
+    yaxuan "见过门的人，很难再把自己骗回原样。"
 
     "你沉默了几秒，最终还是抬起头。"
     "你低声问出那个最现实的问题。"
@@ -114,8 +114,8 @@ label chapter_01_inner_world:
     show mengmeng idle at char_single
     with dissolve
 
-    mengmeng "所以第一章的重点，不是把你留下。"
-    mengmeng "而是让你明白，你已经站在门内了。"
+    mengmeng "所以现在最重要的，不是把你留下。"
+    mengmeng "而是让你知道，你已经站进门里了，不用再一个人装作没事。"
 
     "雾气深处忽然传来一声细微的碎裂声。"
     "所有人的表情同时变了。"
@@ -127,9 +127,9 @@ label chapter_01_inner_world:
     show yaxuan idle at char_trio_right
     with dissolve
 
-    xuexue "来了得比预想更快。"
-    lulu "门缝在扩大。"
-    yaxuan "闲聊到此为止，先带他离开这里。"
+    xuexue "波动提前了。比预测时间早。"
+    lulu "门缝在闻新的回响。它对他很好奇。"
+    yaxuan "闲聊到此为止。先把他带离中心区域。"
 
     hide xuexue idle
     hide lulu idle
