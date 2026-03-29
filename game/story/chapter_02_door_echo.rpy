@@ -231,4 +231,4 @@ label chapter_02_door_echo:
 
     "门外等你。"
 
-    return
+    jump chapter_03_voice_trace
