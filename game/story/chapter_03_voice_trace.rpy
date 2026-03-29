@@ -5,7 +5,7 @@ label chapter_03_voice_trace:
 
     $ current_chapter = "第三章 语音落点"
 
-    scene black
+    scene bg rental_room_night
     with fade
 
     "你盯着那条未读语音，指尖悬在屏幕上方，迟迟没有点下去。"
